@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity(), ButtonFragment.ButtonInterface {
             - show both fragments if Landscape
           */
 
-
         if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
         {
             val buttonFrag = ButtonFragment()
@@ -53,8 +52,31 @@ class MainActivity : AppCompatActivity(), ButtonFragment.ButtonInterface {
     /* TODO 2: switch fragments if portrait (no need to switch fragments if Landscape)
         */
     // Remember to place Fragment transactions on BackStack so then can be reversed
-    override fun buttonClicked() {
+    override fun buttonClicked()
+    {
+        //current fragment
+        val currentFrag = supportFragmentManager.findFragmentById(R.id.container2)
+        //compare
+        if(currentFrag is ButtonFragment)
+        {
+            val dieFrag = DieFragment()
 
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.container2, dieFrag)
+                .addToBackStack(null)
+                .commit()
+        }
+        else
+        {
+            val buttonFrag = ButtonFragment()
+
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.container1, buttonFrag)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
 
